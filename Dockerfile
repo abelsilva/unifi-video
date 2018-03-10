@@ -16,7 +16,10 @@ RUN apt-get update \
 
 RUN export DOWNLOAD_URL="https://dl.ubnt.com//firmwares/ufv/v3.9.3/unifi-video.Ubuntu16.04_amd64.v3.9.3.deb" \
  && curl -L ${DOWNLOAD_URL} -o /tmp/unifi-video.deb \
- && dpkg -i /tmp/unifi-video.deb
+ && dpkg -i /tmp/unifi-video.deb \
+ && rm -f /tmp/unifi-video.deb
+
+RUN sed -i 's/ulimit.*$//g' /usr/sbin/unifi-video
 
 ADD start.sh /srv/bin/start.sh
 RUN chmod +x /srv/bin/start.sh

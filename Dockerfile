@@ -14,7 +14,7 @@ RUN apt-get update \
         jsvc \
  && rm -rf /var/lib/apt/lists/*
 
-RUN export DOWNLOAD_URL="https://dl.ubnt.com/firmwares/ufv/v3.9.7/unifi-video.Ubuntu16.04_amd64.v3.9.7.deb" \
+RUN export DOWNLOAD_URL="https://dl.ubnt.com/firmwares/ufv/v3.9.9/unifi-video.Ubuntu16.04_amd64.v3.9.9.deb" \
  && curl -L ${DOWNLOAD_URL} -o /tmp/unifi-video.deb \
  && dpkg -i /tmp/unifi-video.deb \
  && rm -f /tmp/unifi-video.deb

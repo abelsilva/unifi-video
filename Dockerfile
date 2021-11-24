@@ -1,16 +1,24 @@
 FROM ubuntu:16.04
 LABEL maintainer="abel.silva@gmail.com"
 
+
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
         curl \
         less \
+        ca-certificates-java
+
+RUN export DOWNLOAD_URL="http://launchpadlibrarian.net/505954362/openjdk-8-jre-headless_8u275-b01-0ubuntu1~16.04_amd64.deb" \
+  && curl -L ${DOWNLOAD_URL} -o "/tmp/openjdk-8-jre-headless_8u275-b01-0ubuntu1~16.04_amd64.deb" \
+  && dpkg -i "/tmp/openjdk-8-jre-headless_8u275-b01-0ubuntu1~16.04_amd64.deb" \
+  && rm -f "/tmp/openjdk-8-jre-headless_8u275-b01-0ubuntu1~16.04_amd64.deb"
+
+RUN apt-get install -y --no-install-recommends \
         ca-certificates \
         sudo \
         psmisc \
         lsb-release \
         mongodb-server \
-        openjdk-8-jre-headless \
         jsvc \
  && rm -rf /var/lib/apt/lists/*
 

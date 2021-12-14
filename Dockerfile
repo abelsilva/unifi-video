@@ -27,6 +27,17 @@ RUN export DOWNLOAD_URL="https://dl.ui.com/firmwares/ufv/v3.10.13/unifi-video.Ub
  && dpkg -i /tmp/unifi-video.deb \
  && rm -f /tmp/unifi-video.deb
 
+RUN export DOWNLOAD_URL="https://dlcdn.apache.org/logging/log4j/2.16.0/apache-log4j-2.16.0-bin.tar.gz" \
+ && curl -L ${DOWNLOAD_URL} -o /tmp/log4j.tar.gz \
+ && tar -xzvf /tmp/log4j.tar.gz -C /tmp \
+ && rm -rf /usr/lib/unifi-video/lib/log4j-api-2.1.jar \
+ && rm -rf /usr/lib/unifi-video/lib/log4j-core-2.1.jar \
+ && rm -rf /usr/lib/unifi-video/lib/log4j-slf4j-impl-2.1.jar \
+ && cp /tmp/apache-log4j-2.16.0-bin/log4j-api-2.16.0.jar /usr/lib/unifi-video/lib/log4j-api-2.1.jar \
+ && cp /tmp/apache-log4j-2.16.0-bin/log4j-core-2.16.0.jar /usr/lib/unifi-video/lib/log4j-core-2.1.jar \
+ && cp /tmp/apache-log4j-2.16.0-bin/log4j-slf4j-impl-2.16.0.jar /usr/lib/unifi-video/lib/log4j-slf4j-impl-2.1.jar \
+ && rm -rf /tmp/log4j.tar.gz /tmp/apache-log4j-2.16.0-bin
+
 RUN sed -i 's/ulimit.*$//g' /usr/sbin/unifi-video
 
 ADD start.sh /srv/bin/start.sh
